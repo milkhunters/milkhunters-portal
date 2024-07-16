@@ -16,26 +16,27 @@ import {
 import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
 import { Bell, Home, Search, Settings, User } from 'lucide-react';
+import { ModeToggle } from '../elements/mode-toggle';
+
+const ASIDE = [
+  { title: 'Главная', to: '/feed', icon: <Home className="mr-3" /> },
+  { title: 'Профиль', to: '/users/aibryx', icon: <User className="mr-3" /> },
+  { title: 'Настройки', to: '/settings', icon: <Settings className="mr-3" /> },
+];
+
+const MOBILE_NAV_LOGOS = [
+  { to: '/feed', icon: <Home /> },
+  { to: '/users/aibryx', icon: <User /> },
+  { to: '/notifications', icon: <Bell /> },
+  { to: '/settings', icon: <Settings /> },
+];
 
 export const MainLayout = () => {
-  const ASIDE = [
-    { title: 'Главная', to: '/feed', icon: <Home className="mr-3" /> },
-    { title: 'Профиль', to: '/user', icon: <User className="mr-3" /> },
-    { title: 'Настройки', to: '/settings', icon: <Settings className="mr-3" /> },
-  ];
-
-  const MOBILE_NAV_LOGOS = [
-    { to: '/feed', icon: <Home /> },
-    { to: '/user', icon: <User /> },
-    { to: '/notifications', icon: <Bell /> },
-    { to: '/settings', icon: <Settings /> },
-  ];
-
   const { pathname } = useLocation();
-
   const navigate = useNavigate();
+
   const navigationMenuTriggerStyle = cva(
-    'group inline-flex h-10 w-max items-center justify-center rounded-full px-8 bg-background py-6 text-sm font-medium transition-colors hover:text-primary focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50',
+    'group inline-flex h-10 w-max items-center justify-center rounded-full  bg-background py-6 text-sm font-medium transition-colors hover:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50',
   );
 
   const user = false;
@@ -48,10 +49,12 @@ export const MainLayout = () => {
   return (
     <div className="relative h-screen">
       <header className="py-4 flex justify-between items-center container">
-        <Logo className="p-0 md:pl-8" />
+        <Logo className="" />
 
-        <div className="flex justify-between items-center gap-3 md:gap-7">
+        <div className="flex justify-between items-center gap-3 md:gap-8">
           <Search size={28} className="hidden md:flex hover:text-primary" />
+
+          <ModeToggle />
 
           {user ? (
             <>
@@ -89,8 +92,12 @@ export const MainLayout = () => {
             </>
           ) : (
             <div className="flex gap-2">
-              <Button>Войти</Button>
-              <Button className="hidden md:inline-flex" variant="outline">
+              <Button onClick={() => navigate('/auth/sign-in')}>Войти</Button>
+              <Button
+                onClick={() => navigate('/auth/sign-up')}
+                className="hidden md:inline-flex"
+                variant="outline"
+              >
                 Зарегистрироваться
               </Button>
             </div>
@@ -98,34 +105,37 @@ export const MainLayout = () => {
         </div>
       </header>
 
-      <main className="flex justify-between items-start container main-h">
-        <aside className="hidden md:block">
-          <ul>
-            {ASIDE.map(({ title, to, icon }) => (
-              <li key={to} className="my-2">
-                <NavLink
-                  className={({ isActive }) =>
-                    cn(
-                      navigationMenuTriggerStyle(),
-                      'text-xl w-full justify-start',
-                      isActive ? 'bg-primary text-white' : '',
-                    )
-                  }
-                  to={to}
-                >
-                  {icon}
-                  {title}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+      <main className="flex mt-1 justify-between items-start container main-h">
+        <aside className="hidden md:flex flex-col justify-between h-full">
+          <div>
+            <ul>
+              {ASIDE.map(({ title, to, icon }) => (
+                <li key={to} className="my-1">
+                  <NavLink
+                    className={({ isActive }) =>
+                      cn(
+                        navigationMenuTriggerStyle(),
+                        'text-xl w-full justify-start',
+                        isActive ? 'text-primary' : '',
+                      )
+                    }
+                    to={to}
+                  >
+                    {icon}
+                    {title}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+            <Button className="w-full	mt-4">Написать</Button>
+          </div>
         </aside>
 
-        <div className="w-full md:w-2/5 h-full overflow-y-auto scrollbar-hide">
+        <div className="w-full md:w-1/2 h-full overflow-y-auto scrollbar-hide">
           <Outlet />
         </div>
 
-        <div className="hidden md:flex justify-center items-center w-[320px] h-[400px] border-2 rounded-lg">
+        <div className="hidden lg:flex justify-center items-center w-[320px] h-[400px] border-2 rounded-lg">
           Здесь могла быть ВАША реклама!
         </div>
       </main>

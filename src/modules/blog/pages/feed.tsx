@@ -17,7 +17,7 @@ export const Feed = () => {
         .fill('post')
         .map(() => {
           return (
-            <Card className="w-full border-2 border-gray-200">
+            <Card className="w-full border-2" key={Math.random()}>
               <CardHeader className="gap-3">
                 <div className="flex justify-start gap-4">
                   <Avatar className="w-11 h-11">
@@ -39,7 +39,7 @@ export const Feed = () => {
                   Аркадная гонка добилась такого результата благодаря Game Pass.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="">
                 <img
                   src="https://leonardo.osnova.io/fb46f95a-d7eb-5edb-b75e-419d66b5ed08/-/preview/600x/-/format/webp"
                   alt="_"
@@ -47,14 +47,15 @@ export const Feed = () => {
                 />
               </CardContent>
               <CardFooter className="flex justify-start gap-6">
-                <div className="flex items-center p-2 gap-2 hover:bg-gray-100 rounded-2xl poiner">
-                  <Heart size={22} /> <span className="text-lg">12</span>
+                <div className="flex items-cente gap-2 hover:text-primary cursor-pointer">
+                  <Heart size={22} />
+                  <span className="text-lg">12</span>
                 </div>
-                <div className="flex items-center p-2 gap-2 hover:bg-gray-100 rounded-2xl poiner">
+                <div className="flex items-center gap-2 hover:text-primary cursor-pointer">
                   <MessageCircle size={22} />
                   <span className="text-lg">2</span>
                 </div>
-                <div className="flex items-center p-2 gap-2 hover:bg-gray-100 rounded-2xl poiner">
+                <div className="flex items-center gap-2 hover:text-primary cursor-pointer">
                   <Share2 size={22} />
                 </div>
               </CardFooter>
