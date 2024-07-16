@@ -47,7 +47,7 @@ export const Feed = () => {
                 />
               </CardContent>
               <CardFooter className="flex justify-start gap-6">
-                <div className="flex items-cente gap-2 hover:text-primary cursor-pointer">
+                <div className="flex items-center gap-2 hover:text-primary cursor-pointer">
                   <Heart size={22} />
                   <span className="text-lg">12</span>
                 </div>
