@@ -59,6 +59,30 @@ export const router = createBrowserRouter([
           };
         },
       },
+      {
+        path: 'notices',
+        lazy: async () => {
+          const { Notices } = await import('@/modules/users');
+
+          return {
+            Component: () => (
+              <ProtectedRoute>
+                <Notices />
+              </ProtectedRoute>
+            ),
+          };
+        },
+      },
+      {
+        path: 'search',
+        lazy: async () => {
+          const { Search } = await import('@/modules/tools');
+
+          return {
+            Component: Search,
+          };
+        },
+      },
     ],
   },
 ]);

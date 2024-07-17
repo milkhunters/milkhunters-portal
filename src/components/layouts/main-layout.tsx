@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
-import { Bell, Home, Search, Settings, User } from 'lucide-react';
+import { Bell, Home, Pencil, Search, Settings, User } from 'lucide-react';
 import { ModeToggle } from '../elements/mode-toggle';
 
 const ASIDE = [
@@ -27,7 +27,8 @@ const ASIDE = [
 const MOBILE_NAV_LOGOS = [
   { to: '/feed', icon: <Home /> },
   { to: '/users/aibryx', icon: <User /> },
-  { to: '/notifications', icon: <Bell /> },
+  { to: '/search', icon: <Search /> },
+  { to: '/notices', icon: <Bell /> },
   { to: '/settings', icon: <Settings /> },
 ];
 
@@ -39,7 +40,7 @@ export const MainLayout = () => {
     'group inline-flex h-10 w-max items-center justify-center rounded-full  bg-background py-6 text-sm font-medium transition-colors hover:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50',
   );
 
-  const user = false;
+  const user = !false;
 
   useEffect(() => {
     if (pathname === '/') navigate('/feed', { replace: true });
@@ -54,11 +55,11 @@ export const MainLayout = () => {
         <div className="flex justify-between items-center gap-3 md:gap-8">
           <Search size={28} className="hidden md:flex hover:text-primary" />
 
-          <ModeToggle />
+          {user ? null : <ModeToggle />}
 
           {user ? (
             <>
-              <Bell size={28} className="hover:text-primary" />
+              <Bell size={28} className="hidden md:flex hover:text-primary" />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="w-11 h-11">
@@ -127,7 +128,9 @@ export const MainLayout = () => {
                 </li>
               ))}
             </ul>
-            <Button className="w-full	mt-4">Написать</Button>
+            <Button className="w-full	mt-4">
+              <Pencil size={20} className="mr-4" /> Написать
+            </Button>
           </div>
         </aside>
 

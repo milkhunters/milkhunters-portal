@@ -5,10 +5,10 @@ import { Suspense } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'sonner';
 
-export const Shell = () => {
+export const App = () => {
   return (
     <Suspense fallback={<Spinner fullScreen />}>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
         <Toaster richColors />
       </ThemeProvider>

@@ -28,10 +28,10 @@ export const Settings = () => {
           <Input id="picture" type="file" />
         </div>
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="email">Имя</Label>
+          <Label htmlFor="username">Имя</Label>
           <Input
-            type="email"
-            id="email"
+            type="text"
+            id="usetname"
             placeholder="Новое имя"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -48,11 +48,11 @@ export const Settings = () => {
           />
         </div>
 
-        <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="email">Пароль</Label>
+        <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="password">Пароль</Label>
           <Input
-            type="email"
-            id="email"
+            type="text"
+            id="password"
             placeholder="Новый пароль"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
