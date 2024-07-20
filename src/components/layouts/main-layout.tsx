@@ -15,13 +15,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
-import { Bell, Home, Pencil, Search, Settings, User } from 'lucide-react';
+import { Bell, Home, PencilIcon, PencilLineIcon, Search, Settings, User } from 'lucide-react';
 import { ModeToggle } from '../elements/mode-toggle';
 
-const ASIDE = [
-  { title: 'Главная', to: '/feed', icon: <Home className="mr-3" /> },
-  { title: 'Профиль', to: '/users/aibryx', icon: <User className="mr-3" /> },
-  { title: 'Настройки', to: '/settings', icon: <Settings className="mr-3" /> },
+const NAV = [
+  { title: 'Главная', to: '/feed', icon: <Home size={28} /> },
+  { title: 'Профиль', to: '/users/aibryx', icon: <User size={28} /> },
+  { title: 'Настройки', to: '/settings', icon: <Settings size={28} /> },
 ];
 
 const MOBILE_NAV_LOGOS = [
@@ -48,100 +48,91 @@ export const MainLayout = () => {
   }, [pathname]);
 
   return (
-    <div className="relative h-screen">
-      <header className="py-4 flex justify-between items-center container">
-        <Logo className="" />
+    <div className="relative h-screen bg-gray-50 dark:bg-[#020818]">
+      <header className="border-b-2 bg-white dark:bg-[#020818]">
+        <div className="py-3 flex justify-between items-center rounded-full container">
+          <Logo />
 
-        <div className="flex justify-between items-center gap-3 md:gap-8">
-          <Search size={28} className="hidden md:flex hover:text-primary" />
+          <div className="flex gap-2 hidden md:flex">
+            {NAV.map(({ to, icon }) => {
+              return !user && to !== '/feed' ? null : (
+                <NavLink
+                  key={to}
+                  className={({ isActive }) =>
+                    cn(
+                      navigationMenuTriggerStyle(),
+                      'w-full justify-start px-8 hover:bg-accent/100',
+                      isActive
+                        ? 'text-primary border-b-2 rounded-none border-primary hover:bg-parrent'
+                        : '',
+                    )
+                  }
+                  to={to}
+                >
+                  {icon}
+                </NavLink>
+              );
+            })}
+          </div>
 
-          {user ? null : <ModeToggle />}
+          <div className="flex justify-between items-center gap-3 md:gap-8">
+            <Search size={28} className="hidden md:flex hover:text-primary" />
 
-          {user ? (
-            <>
-              <Bell size={28} className="hidden md:flex hover:text-primary" />
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar className="w-11 h-11">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                  <DropdownMenuLabel>aibryx</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
+            {user ? null : <ModeToggle />}
+
+            {user ? (
+              <>
+                <Bell size={28} className="hidden md:flex hover:text-primary" />
+                <PencilLineIcon size={26} className="hidden md:flex hover:text-primary" />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar className="w-11 h-11">
+                      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>aibryx</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        Профиль
+                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem>
+                        Настройки
+                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      Профиль
-                      <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                      Выйти
+                      <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                     </DropdownMenuItem>
-
-                    <DropdownMenuItem>
-                      Настройки
-                      <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
-
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    Выйти
-                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </>
-          ) : (
-            <div className="flex gap-2">
-              <Button onClick={() => navigate('/auth/sign-in')}>Войти</Button>
-              <Button
-                onClick={() => navigate('/auth/sign-up')}
-                className="hidden md:inline-flex"
-                variant="outline"
-              >
-                Зарегистрироваться
-              </Button>
-            </div>
-          )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            ) : (
+              <div className="flex gap-2">
+                <Button onClick={() => navigate('/auth/sign-in')}>Войти</Button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
-      <main className="flex mt-1 justify-between items-start container main-h">
-        <aside className="hidden md:flex flex-col justify-between h-full">
-          <div>
-            <ul>
-              {ASIDE.map(({ title, to, icon }) => (
-                <li key={to} className="my-1">
-                  <NavLink
-                    className={({ isActive }) =>
-                      cn(
-                        navigationMenuTriggerStyle(),
-                        'text-xl w-full justify-start',
-                        isActive ? 'text-primary' : '',
-                      )
-                    }
-                    to={to}
-                  >
-                    {icon}
-                    {title}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-            <Button className="w-full	mt-4">
-              <Pencil size={20} className="mr-4" /> Написать
-            </Button>
-          </div>
-        </aside>
-
+      <main className="flex	 justify-center items-center container main-h">
         <div className="w-full md:w-1/2 h-full overflow-y-auto scrollbar-hide">
           <Outlet />
         </div>
-
-        <div className="hidden lg:flex justify-center items-center w-[320px] h-[400px] border-2 rounded-lg">
-          Здесь могла быть ВАША реклама!
-        </div>
       </main>
+
+      <div className="flex md:hidden w-12 h-12 bg-primary rounded-full fixed bottom-16 right-4 items-center justify-center">
+        <PencilIcon size={22} className="text-white" />
+      </div>
 
       <div className="flex md:hidden w-screen h-14 border-primary absolute bottom-0 shadow-t-2xl">
         <ul className="flex justify-around items-center w-full bg-slate-50 ">

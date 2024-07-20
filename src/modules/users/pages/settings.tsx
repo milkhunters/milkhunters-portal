@@ -17,7 +17,7 @@ export const Settings = () => {
   const [password, setPassword] = useState('');
 
   return (
-    <Card className="w-full border-2" key={Math.random()}>
+    <Card className="w-full border-2 mt-4" key={Math.random()}>
       <CardHeader className="gap-3">
         <CardTitle>Настройки</CardTitle>
         <CardDescription className="text-md">Ваши персональные настройки</CardDescription>

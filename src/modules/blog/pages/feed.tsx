@@ -9,10 +9,13 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart, MessageCircle, Share2 } from 'lucide-react';
+import { DemoEditor } from '@/modules/users/components/demo-editor';
 
-export const Feed = () => {
+export const Feed = ({ withEditor = true }: { withEditor?: boolean }) => {
   return (
-    <div className="flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center gap-6 mt-4">
+      {withEditor ? <DemoEditor /> : null}
+
       {Array(10)
         .fill('post')
         .map(() => {
@@ -39,11 +42,11 @@ export const Feed = () => {
                   Аркадная гонка добилась такого результата благодаря Game Pass.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="">
+              <CardContent className="w-full">
                 <img
                   src="https://leonardo.osnova.io/fb46f95a-d7eb-5edb-b75e-419d66b5ed08/-/preview/600x/-/format/webp"
                   alt="_"
-                  className="rounded-lg"
+                  className="rounded-lg w-full"
                 />
               </CardContent>
               <CardFooter className="flex justify-start gap-6">

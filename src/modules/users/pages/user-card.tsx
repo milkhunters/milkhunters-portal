@@ -9,7 +9,7 @@ export const UserCard = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   return (
-    <Card className="w-full border-2 border-gray-200 border-none" key={Math.random()}>
+    <Card className="w-full border-2 border-gray-200 border-none mt-4" key={Math.random()}>
       <CardHeader className="gap-3 border-2 rounded-lg">
         <div className="flex justify-between">
           <div className="flex gap-4">
@@ -35,8 +35,8 @@ export const UserCard = () => {
           Глупо, когда у тебя есть шанс всё изменить, а ты боишься.
         </CardDescription>
       </CardHeader>
-      <CardContent className="mt-6 w-full px-0">
-        <Feed />
+      <CardContent className="mt-4 w-full px-0">
+        <Feed withEditor={false} />
       </CardContent>
       <CardFooter className="flex justify-start gap-6"></CardFooter>
     </Card>
