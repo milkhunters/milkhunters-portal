@@ -36,7 +36,14 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: 'users/:id',
+        path: 'feed/:postId',
+        lazy: async () => {
+          const { Article } = await import('@/modules/blog');
+          return { Component: Article };
+        },
+      },
+      {
+        path: 'users/:userId',
         lazy: async () => {
           const { UserCard } = await import('@/modules/users');
 

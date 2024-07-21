@@ -13,10 +13,18 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
 import { Bell, Home, PencilIcon, PencilLineIcon, Search, Settings, User } from 'lucide-react';
 import { ModeToggle } from '../elements/mode-toggle';
+import { SuperEditor } from '@/modules/blog';
 
 const NAV = [
   { title: 'Главная', to: '/feed', icon: <Home size={28} /> },
@@ -64,7 +72,7 @@ export const MainLayout = () => {
                       'w-full justify-start px-8 hover:bg-accent/100',
                       isActive
                         ? 'text-primary border-b-2 rounded-none border-primary hover:bg-parrent'
-                        : '',
+                        : null,
                     )
                   }
                   to={to}
@@ -83,7 +91,18 @@ export const MainLayout = () => {
             {user ? (
               <>
                 <Bell size={28} className="hidden md:flex hover:text-primary" />
-                <PencilLineIcon size={26} className="hidden md:flex hover:text-primary" />
+
+                <Dialog>
+                  <DialogTrigger>
+                    <PencilLineIcon size={26} className="hidden md:flex hover:text-primary" />
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Поделитесь своей историей</DialogTitle>
+                    </DialogHeader>
+                    <SuperEditor />
+                  </DialogContent>
+                </Dialog>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Avatar className="w-11 h-11">
@@ -107,7 +126,6 @@ export const MainLayout = () => {
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuSeparator />
                     <DropdownMenuItem>
                       Выйти
                       <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
@@ -124,7 +142,7 @@ export const MainLayout = () => {
         </div>
       </header>
 
-      <main className="flex	 justify-center items-center container main-h">
+      <main className="flex	justify-center items-center container main-h">
         <div className="w-full md:w-1/2 h-full overflow-y-auto scrollbar-hide">
           <Outlet />
         </div>

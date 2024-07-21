@@ -10,6 +10,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Heart, MessageCircle, Share2 } from 'lucide-react';
 import { DemoEditor } from '@/modules/users/components/demo-editor';
+import { Link } from 'react-router-dom';
 
 export const Feed = ({ withEditor = true }: { withEditor?: boolean }) => {
   return (
@@ -35,8 +36,10 @@ export const Feed = ({ withEditor = true }: { withEditor?: boolean }) => {
                 </div>
 
                 <CardTitle>
-                  Аудитория Forza Horizon 5 достигла 40 миллионов игроков — почти за три года с
-                  релиза
+                  <Link to="/feed/post-demo">
+                    Аудитория Forza Horizon 5 достигла 40 миллионов игроков — почти за три года с
+                    релиза
+                  </Link>
                 </CardTitle>
                 <CardDescription className="text-md">
                   Аркадная гонка добилась такого результата благодаря Game Pass.

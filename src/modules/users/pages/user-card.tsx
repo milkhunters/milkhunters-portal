@@ -6,7 +6,7 @@ import { Feed } from '@/modules/blog';
 import { Settings } from 'lucide-react';
 
 export const UserCard = () => {
-  const { id } = useParams();
+  const { userId } = useParams();
   const navigate = useNavigate();
   return (
     <Card className="w-full border-2 border-gray-200 border-none mt-4" key={Math.random()}>
@@ -19,7 +19,7 @@ export const UserCard = () => {
             </Avatar>
 
             <div className="flex flex-col gap-1">
-              <p className="text-md font-semibold">{id} gamer</p>
+              <p className="text-md font-semibold">{userId} gamer</p>
               <p className="text-sm text-gray-500 ">online</p>
             </div>
           </div>
